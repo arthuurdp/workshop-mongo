@@ -1,18 +1,30 @@
 package com.arthuurdp.workshop_mongo.resources;
 
 import com.arthuurdp.workshop_mongo.entities.User;
-import com.arthuurdp.workshop_mongo.repositories.UserRepository;
+import com.arthuurdp.workshop_mongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(value = "/users")
 public class UserResource {
     @Autowired
-    private UserRepository userRepository;
+    private UserService service;
 
+    @GetMapping
+    public List<User> findAll() {
+        return service.findAll();
+    }
+
+    @PostMapping
+    public void insert(@RequestBody User user) {
+        service.insert(user);
+    }
+
+    @GetMapping("/{id}")
+    public void findById(@PathVariable String id) {
+        service.findById(id);
+    }
 }
