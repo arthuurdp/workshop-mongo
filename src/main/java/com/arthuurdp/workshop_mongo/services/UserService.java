@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public void insert(User user) {
-        repo.insert(user);
+        repo.save(user);
     }
 
     public User findById(String id) {

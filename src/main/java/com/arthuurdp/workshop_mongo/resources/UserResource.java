@@ -3,6 +3,7 @@ package com.arthuurdp.workshop_mongo.resources;
 import com.arthuurdp.workshop_mongo.entities.User;
 import com.arthuurdp.workshop_mongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +15,9 @@ public class UserResource {
     private UserService service;
 
     @GetMapping
-    public List<User> findAll() {
-        return service.findAll();
+    public ResponseEntity<List<User>> findAll() {
+        List<User> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
     @PostMapping
@@ -24,7 +26,8 @@ public class UserResource {
     }
 
     @GetMapping("/{id}")
-    public void findById(@PathVariable String id) {
-        service.findById(id);
+    public ResponseEntity<User> findById(@PathVariable String id) {
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user);
     }
 }
